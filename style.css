@@ -72,7 +72,10 @@ header h1 {
   display: flex;
   justify-content: center;
   gap: 10px;
+  position: relative; /* asegura que esté por encima */
+  z-index: 10;        /* prioridad sobre otros elementos */
 }
+
 
 button {
   background-color: #D4AF37;
@@ -92,10 +95,6 @@ button:hover {
   box-shadow: 0 0 12px rgba(255,215,0,0.7);
 }
 
-#talla {
-  font-size: 18px;
-  color: #eee;
-}
 
 .calibracion {
   background-color: #222;
@@ -122,36 +121,9 @@ button:hover {
   border-radius: 50%;
   margin: 15px auto;
   box-shadow: 0 0 10px rgba(255,215,0,0.4);
-}
+  pointer-events: none;
 
-#btnOk {
-  display: inline-block;
-  margin-top: 10px;
-  background: #D4AF37;
-  color: #111;
-  border: none;
-  width: 60px;          /* ancho fijo */
-  height: 35px;         /* altura más baja */
-  border-radius: 20px;  /* forma más suave */
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 3px 8px rgba(212,175,55,0.4);
 }
-
-#btnOk:hover {
-  background: #FFD700;
-  box-shadow: 0 0 10px rgba(255,215,0,0.7);
-}
-
-#btnOk:disabled {
-  background: #777;
-  color: #ccc;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
 
 
 #sliderCalibracion {
@@ -159,72 +131,17 @@ button:hover {
   margin-top: 10px;
 }
 
-/* 📱 Ajustes para pantallas móviles */
+/* Ajustes para pantallas móviles */
 @media (max-width: 480px) {
-
-  body {
-    padding: 10px;
-    height: auto; /* Evita recortes verticales */
-  }
-
-  .app {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .viewer {
-    width: 180px;
-    height: 320px;
-    border-radius: 15px;
-  }
-
-  .finger-outline {
-    width: 70px;
-    height: 250px;
-    margin-left: -35px;
-  }
-
-  .linea {
-    left: 60px;
-  }
-
-  .linea-derecha {
-    right: 60px;
-  }
-
-  .controles {
-    gap: 6px;
-  }
-
-  button {
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-  }
-
-  #btnOk {
-    width: 55px;
-    height: 30px;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-
-  .calibracion {
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  .calibracion h2 {
-    font-size: 16px;
-  }
-
-  .calibracion p {
-    font-size: 12px;
-  }
-
-  #sliderCalibracion {
-    width: 100%;
-  }
+  body { padding: 10px; height: auto; }
+  .app { width: 100%; max-width: 100%; }
+  .viewer { width: 180px; height: 320px; border-radius: 15px; }
+  .linea { left: 60px; }
+  .linea-derecha { right: 60px; }
+  .controles { gap: 6px; }
+  button { width: 40px; height: 40px; font-size: 22px; }
+  .calibracion { padding: 10px; font-size: 13px; }
+  .calibracion h2 { font-size: 16px; }
+  .calibracion p { font-size: 12px; }
+  #sliderCalibracion { width: 100%; }
 }
-
-

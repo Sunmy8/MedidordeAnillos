@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="style.css">
   <style>
 
-
     @media (max-width: 600px) {
       .recordatorio {
         font-size: 13px;
@@ -35,41 +34,41 @@
     }
   </style>
 </head>
+
+
+
 <body>
 
-      <div class="app">
-    <header>
-      <!-- 🔹 Aquí insertas tu logo -->
-      <img src="logo.png" alt="Logo de tu marca" class="logo">
+<div class="app">
+  <header>
+    <!-- 🔹 Aquí insertas tu logo -->
+    <img src="logo.png" alt="Logo de tu marca" class="logo">
 
-      <h1>💍 Medidor de Dedo</h1>
-      <p id="medida">20 mm</p>
-    </header>
+    <h1>💍 Medidor de Dedo</h1>
+  </header>
 
-<!-- Zona de medición -->
-    <div class="viewer">
-      <div id="linea" class="linea"></div>
-      <div id="linea-derecha" class="linea-derecha"></div>
-    
-    </div>
-
-    <div class="controles">
-      <button id="menos">−</button>
-      <button id="mas">+</button>
-    </div>
-
-    <!-- Calibración con moneda -->
-    <div class="calibracion">
-      <h2>⚙️ Calibrar pantalla con moneda de 1 sol</h2>
-      <p>Coloca una moneda de 1 sol (25.5 mm de diámetro) sobre el círculo y ajusta el tamaño.</p>
-      
-      <div class="moneda"></div>
-      <input type="range" id="sliderCalibracion" min="1" max="10" step="0.01" value="5">
-      <p>Escala actual: <span id="escalaValor">5</span> px/mm</p>
-       <button id="btnOk">OK</button>
-    </div>
+  <!-- 🔹 Calibración con moneda primero -->
+  <div class="calibracion">
+    <h2>⚙️ Calibrar pantalla con moneda de 1 sol</h2>
+    <p>Coloca una moneda de 1 sol (25.5 mm de diámetro) sobre el círculo y ajusta el tamaño.</p>
+    <div class="moneda"></div>
+    <input type="range" id="sliderCalibracion" min="1" max="10" step="0.01" value="5">
+    <p>Escala actual: <span id="escalaValor">5</span> px/mm</p>
   </div>
 
-  <script src="script.js"></script>
+  <!-- 🔹 Zona de medición después -->
+       <p id="medida">20 mm</p>
+  <div class="viewer">
+    <div id="linea" class="linea"></div>
+    <div id="linea-derecha" class="linea-derecha"></div>
+  </div>
+
+  <div class="controles">
+    <button id="menos">−</button>
+    <button id="mas">+</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

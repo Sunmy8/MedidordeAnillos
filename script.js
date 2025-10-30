@@ -3,7 +3,10 @@ let medida = 15; // mm iniciales
 let escala = 5;  // píxeles por mm (ajustable con calibración)
 
 const medidaTxt = document.getElementById("medida");
-const tallaTxt = document.getElementById("talla");
+const tallaTxt = document.createElement("p"); // Creamos elemento temporal si no existe
+tallaTxt.id = "talla";
+document.querySelector(".app").appendChild(tallaTxt);
+
 const linea = document.getElementById("linea");
 const lineaDer = document.getElementById("linea-derecha");
 const sliderCalibracion = document.getElementById("sliderCalibracion");
@@ -27,29 +30,28 @@ const tallas = [
   { diametro: 23.0, talla: "16" }
 ];
 
-// 🔹 Actualiza visualmente la medición
-function actualizar() {
-  medidaTxt.textContent = medida.toFixed(1) + " mm";
-  const talla = obtenerTalla(medida);
-  tallaTxt.textContent = "Talla estimada: " + talla;
-
-  const offset = (medida * escala) / 2;
-  linea.style.left = 110 - offset + "px";
-  lineaDer.style.right = 110 - offset + "px";
-}
-
 // 🔹 Encuentra la talla más cercana
 function obtenerTalla(mm) {
   let minDiff = Infinity;
   let tallaCercana = "N/A";
   for (let t of tallas) {
-    let diff = Math.abs(t.diametro - mm);
+    const diff = Math.abs(t.diametro - mm);
     if (diff < minDiff) {
       minDiff = diff;
       tallaCercana = t.talla;
     }
   }
   return tallaCercana;
+}
+
+// 🔹 Actualiza visualmente la medición
+function actualizar() {
+  medidaTxt.textContent = medida.toFixed(1) + " mm";
+  const talla = obtenerTalla(medida);
+
+  const offset = (medida * escala) / 2;
+  linea.style.left = 110 - offset + "px";
+  lineaDer.style.right = 110 - offset + "px";
 }
 
 // 🔹 Botones de control (aumenta/disminuye de 0.5 mm)
@@ -66,11 +68,7 @@ document.getElementById("menos").addEventListener("click", () => {
 });
 
 // 🔹 Calibración con moneda de 1 sol (25.5 mm)
-let calibracionBloqueada = false; // ← variable para saber si está bloqueada
-
 sliderCalibracion.addEventListener("input", () => {
-  if (calibracionBloqueada) return; // ← evita cambios si ya presionó OK
-
   escala = parseFloat(sliderCalibracion.value);
   escalaValor.textContent = escala.toFixed(2);
 
@@ -81,16 +79,7 @@ sliderCalibracion.addEventListener("input", () => {
   actualizar();
 });
 
-// 🔹 Botón OK para confirmar calibración
-const btnOk = document.getElementById("btnOk");
-
-btnOk.addEventListener("click", () => {
-  calibracionBloqueada = true;             // bloquea la calibración
-  alert("✅ Calibración confirmada. Ya no puedes modificar la moneda.");
-});
-
-
-// 🔹 Inicializa
+// 🔹 Inicializa visualización
 function iniciar() {
   const diametroPx = 25.5 * escala;
   moneda.style.width = diametroPx + "px";
