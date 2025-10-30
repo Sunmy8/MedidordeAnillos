@@ -66,7 +66,11 @@ document.getElementById("menos").addEventListener("click", () => {
 });
 
 // 🔹 Calibración con moneda de 1 sol (25.5 mm)
+let calibracionBloqueada = false; // ← variable para saber si está bloqueada
+
 sliderCalibracion.addEventListener("input", () => {
+  if (calibracionBloqueada) return; // ← evita cambios si ya presionó OK
+
   escala = parseFloat(sliderCalibracion.value);
   escalaValor.textContent = escala.toFixed(2);
 
@@ -76,6 +80,15 @@ sliderCalibracion.addEventListener("input", () => {
 
   actualizar();
 });
+
+// 🔹 Botón OK para confirmar calibración
+const btnOk = document.getElementById("btnOk");
+
+btnOk.addEventListener("click", () => {
+  calibracionBloqueada = true;             // bloquea la calibración
+  alert("✅ Calibración confirmada. Ya no puedes modificar la moneda.");
+});
+
 
 // 🔹 Inicializa
 function iniciar() {

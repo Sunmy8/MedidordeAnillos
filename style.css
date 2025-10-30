@@ -124,31 +124,107 @@ button:hover {
   box-shadow: 0 0 10px rgba(255,215,0,0.4);
 }
 
+#btnOk {
+  display: inline-block;
+  margin-top: 10px;
+  background: #D4AF37;
+  color: #111;
+  border: none;
+  width: 60px;          /* ancho fijo */
+  height: 35px;         /* altura más baja */
+  border-radius: 20px;  /* forma más suave */
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 3px 8px rgba(212,175,55,0.4);
+}
+
+#btnOk:hover {
+  background: #FFD700;
+  box-shadow: 0 0 10px rgba(255,215,0,0.7);
+}
+
+#btnOk:disabled {
+  background: #777;
+  color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
 
 #sliderCalibracion {
   width: 80%;
   margin-top: 10px;
 }
-.recordatorio {
-  position: fixed;
-  bottom: 20px;         /* Separado un poco del borde inferior */
-  right: 20px;          /* A un lado (derecha) */
-  background: rgba(0, 0, 0, 0.7);  /* Fondo oscuro translúcido */
-  color: #fff;          /* Texto blanco */
-  font-size: 11px;      /* Más pequeño */
-  font-style: italic;
-  padding: 8px 12px;    /* Compacto */
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  opacity: 0;           /* Empieza invisible */
-  animation: aparecer 70s forwards; /* 10s visible + fade in/out */
-  z-index: 9999;
+
+/* 📱 Ajustes para pantallas móviles */
+@media (max-width: 480px) {
+
+  body {
+    padding: 10px;
+    height: auto; /* Evita recortes verticales */
+  }
+
+  .app {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .viewer {
+    width: 180px;
+    height: 320px;
+    border-radius: 15px;
+  }
+
+  .finger-outline {
+    width: 70px;
+    height: 250px;
+    margin-left: -35px;
+  }
+
+  .linea {
+    left: 60px;
+  }
+
+  .linea-derecha {
+    right: 60px;
+  }
+
+  .controles {
+    gap: 6px;
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  #btnOk {
+    width: 55px;
+    height: 30px;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .calibracion {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .calibracion h2 {
+    font-size: 16px;
+  }
+
+  .calibracion p {
+    font-size: 12px;
+  }
+
+  #sliderCalibracion {
+    width: 100%;
+  }
 }
 
-/* Animación para que aparezca, quede visible 1 min, y se oculte */
-@keyframes aparecer {
-  0% { opacity: 0; }
-  5% { opacity: 1; }   /* aparece suave */
-  85% { opacity: 1; }  /* visible durante ~1 min */
-  100% { opacity: 0; } /* desaparece */
-}
+
