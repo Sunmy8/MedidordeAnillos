@@ -3,9 +3,6 @@ let medida = 15; // mm iniciales
 let escala = 5;  // píxeles por mm (ajustable con calibración)
 
 const medidaTxt = document.getElementById("medida");
-const tallaTxt = document.createElement("p"); 
-tallaTxt.id = "talla";
-document.querySelector(".app").appendChild(tallaTxt);
 
 const linea = document.getElementById("linea");
 const lineaDer = document.getElementById("linea-derecha");
