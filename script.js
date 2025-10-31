@@ -3,7 +3,7 @@ let medida = 15; // mm iniciales
 let escala = 5;  // píxeles por mm (ajustable con calibración)
 
 const medidaTxt = document.getElementById("medida");
-const tallaTxt = document.createElement("p"); // Creamos elemento temporal si no existe
+const tallaTxt = document.createElement("p"); 
 tallaTxt.id = "talla";
 document.querySelector(".app").appendChild(tallaTxt);
 
@@ -12,6 +12,7 @@ const lineaDer = document.getElementById("linea-derecha");
 const sliderCalibracion = document.getElementById("sliderCalibracion");
 const escalaValor = document.getElementById("escalaValor");
 const moneda = document.querySelector(".moneda");
+const viewer = document.querySelector(".viewer");
 
 // Tallas estándar (diámetro interno en mm)
 const tallas = [
@@ -44,30 +45,35 @@ function obtenerTalla(mm) {
   return tallaCercana;
 }
 
-// 🔹 Actualiza visualmente la medición
+// 🔹 Variables para líneas
+let separationPx = medida * escala; // separación inicial en px
+
+// 🔹 Actualiza visualmente la medición y líneas
 function actualizar() {
   medidaTxt.textContent = medida.toFixed(1) + " mm";
-  const talla = obtenerTalla(medida);
+  tallaTxt.textContent = "Talla: " + obtenerTalla(medida);
 
   const offset = (medida * escala) / 2;
-  linea.style.left = 110 - offset + "px";
-  lineaDer.style.right = 110 - offset + "px";
+
+  // Centrar ambas líneas en el viewer
+  linea.style.left = `calc(50% - ${offset}px)`;
+  lineaDer.style.left = `calc(50% + ${offset}px)`;
 }
 
-// 🔹 Botones de control (aumenta/disminuye de 0.5 mm)
+// 🔹 Botones de control
 document.getElementById("mas").addEventListener("click", () => {
   medida += 0.5;
-  if (medida > 30) medida = 30; // límite superior opcional
+  if (medida > 30) medida = 30;
   actualizar();
 });
 
 document.getElementById("menos").addEventListener("click", () => {
   medida -= 0.5;
-  if (medida < 10) medida = 10; // límite inferior opcional
+  if (medida < 10) medida = 10;
   actualizar();
 });
 
-// 🔹 Calibración con moneda de 1 sol (25.5 mm)
+// 🔹 Calibración con moneda
 sliderCalibracion.addEventListener("input", () => {
   escala = parseFloat(sliderCalibracion.value);
   escalaValor.textContent = escala.toFixed(2);
@@ -75,6 +81,31 @@ sliderCalibracion.addEventListener("input", () => {
   const diametroPx = 25.5 * escala;
   moneda.style.width = diametroPx + "px";
   moneda.style.height = diametroPx + "px";
+
+  actualizar();
+});
+
+// 🔹 Arrastrar línea gris en móvil y PC
+let arrastrando = false;
+
+lineaDer.addEventListener("pointerdown", (e) => {
+  arrastrando = true;
+  e.preventDefault();
+});
+
+window.addEventListener("pointerup", () => arrastrando = false);
+
+window.addEventListener("pointermove", (e) => {
+  if (!arrastrando) return;
+  const rect = viewer.getBoundingClientRect();
+  let x = e.clientX - rect.left; // posición relativa al viewer
+  if (x < 0) x = 0;
+  if (x > rect.width) x = rect.width;
+
+  // Calcula medida basada en separación
+  medida = ((x - rect.width / 2) * 2) / escala;
+  if (medida < 10) medida = 10;
+  if (medida > 30) medida = 30;
 
   actualizar();
 });
