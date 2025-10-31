@@ -52,20 +52,18 @@ header h1 {
 .linea, .linea-derecha {
   position: absolute;
   top: 0;
-  height: 100%;
+  bottom: 0;
+  width: 4px;
 }
 
 .linea {
-  left: 80px;
-  width: 2px;
- background-color: #FFD700;
+  background-color: #FFD700;
 }
 
 .linea-derecha {
-  right: 80px;
-  width: 2px;
   border-right: 2px dashed #888;
 }
+
 
 .controles {
   margin: 20px 0;

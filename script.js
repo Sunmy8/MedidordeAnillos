@@ -53,12 +53,14 @@ function actualizar() {
   medidaTxt.textContent = medida.toFixed(1) + " mm";
   tallaTxt.textContent = "Talla: " + obtenerTalla(medida);
 
-  const offset = (medida * escala) / 2;
+  const viewerWidth = viewer.clientWidth;
+  const offset = (medida * escala); // separación en px
 
-  // Centrar ambas líneas en el viewer
-  linea.style.left = `calc(50% - ${offset}px)`;
-  lineaDer.style.left = `calc(50% + ${offset}px)`;
+  // Centrar líneas dentro del viewer
+  linea.style.left = (viewerWidth / 2 - offset / 2) + "px";
+  lineaDer.style.left = (viewerWidth / 2 + offset / 2) + "px";
 }
+
 
 // 🔹 Botones de control
 document.getElementById("mas").addEventListener("click", () => {
@@ -97,12 +99,12 @@ window.addEventListener("pointerup", () => arrastrando = false);
 
 window.addEventListener("pointermove", (e) => {
   if (!arrastrando) return;
+
   const rect = viewer.getBoundingClientRect();
-  let x = e.clientX - rect.left; // posición relativa al viewer
+  let x = e.clientX - rect.left;
   if (x < 0) x = 0;
   if (x > rect.width) x = rect.width;
 
-  // Calcula medida basada en separación
   medida = ((x - rect.width / 2) * 2) / escala;
   if (medida < 10) medida = 10;
   if (medida > 30) medida = 30;
