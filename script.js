@@ -51,7 +51,6 @@ let separationPx = medida * escala; // separación inicial en px
 // 🔹 Actualiza visualmente la medición y líneas
 function actualizar() {
   medidaTxt.textContent = medida.toFixed(1) + " mm";
-  tallaTxt.textContent = "Talla: " + obtenerTalla(medida);
 
   const viewerWidth = viewer.clientWidth;
   const offset = (medida * escala); // separación en px
